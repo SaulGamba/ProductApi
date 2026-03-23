@@ -1,9 +1,10 @@
-using ProductApi.Application.UseCases;
+using ProductApi.Application.Interfaces;
+using ProductApi.Application.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<CreateProductUseCase>();
+builder.Services.AddScoped<ICreateProductUseCase, ProductUseCase>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 

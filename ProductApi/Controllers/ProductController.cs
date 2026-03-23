@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProductApi.Application.UseCases;
+using ProductApi.Application.Products;
 using ProductApi.Domain.Entities;
 using System.Security.Cryptography.X509Certificates;
 
@@ -9,20 +9,22 @@ namespace ProductApi.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly CreateProductUseCase _createProduct;
-        public ProductController(CreateProductUseCase createProduct)
+        private readonly ProductUseCase _createProduct;
+        public ProductController(ProductUseCase createProduct)
         {
             _createProduct = createProduct;
         }
 
         [HttpPost]
-       
-        public IActionResult Execute(Product products)
+        [Route("Execute")]
+        public async Task<IActionResult> Execute([FromBody] CreateProductRequest request)
         {
-            if (products?.Name is not string name)
+            if(string.IsNullOrEmpty(request.Name))
+            {
                 return BadRequest("Name is required.");
+            }
 
-            _createProduct.Execute(products.Name, products.Price);
+            await _createProduct.Create(request.Name, request.Price);
             return Ok();
         }
 
