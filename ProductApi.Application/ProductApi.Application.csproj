@@ -10,4 +10,12 @@
     <Folder Include="UseCases\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProductApi.Domain\ProductApi.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -4,7 +4,10 @@ using System.Text;
 
 namespace ProductApi.Application.Products
 {
-    internal class CreateProductResponse
-    {
-    }
+public class ProductResponse
+{
+    public Guid Id { get; set; }
+    public string? Name { get; set; }
+    public decimal Price { get; set; }
+}
 }

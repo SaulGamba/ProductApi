@@ -1,32 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using ProductApi.Application.Products;
-using ProductApi.Domain.Entities;
-using System.Security.Cryptography.X509Certificates;
+using ProductApi.Application.Products.Commands;
+using ProductApi.Application.Products.Queries;
 
-namespace ProductApi.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class ProductController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public ProductsController(IMediator mediator)
     {
-        private readonly ProductUseCase _createProduct;
-        public ProductController(ProductUseCase createProduct)
-        {
-            _createProduct = createProduct;
-        }
+        _mediator = mediator;
+    }
 
-        [HttpPost]
-        [Route("Execute")]
-        public async Task<IActionResult> Execute([FromBody] CreateProductRequest request)
-        {
-            if(string.IsNullOrEmpty(request.Name))
-            {
-                return BadRequest("Name is required.");
-            }
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateProductRequest request)
+    {
+        if (request == null)
+            return BadRequest("Request inválida.");
 
-            await _createProduct.Create(request.Name, request.Price);
-            return Ok();
-        }
+        if (string.IsNullOrWhiteSpace(request.Name))
+            return BadRequest("El campo 'Name' es obligatorio.");
 
+        var id = await _mediator.Send(new CreateProductCommand(request.Name!, request.Price));
+        return Ok(id);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Get()
+    {
+        var products = await _mediator.Send(new GetProductsQuery());
+        return Ok(products);
     }
 }
