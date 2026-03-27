@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProductApi.Application.Products
+namespace ProductApi.Application.Products.DTOs
 {
 public class ProductResponse
 {

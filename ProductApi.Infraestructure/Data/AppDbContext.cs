@@ -11,5 +11,13 @@ namespace ProductApi.Infrastructure.Data
             : base(options)
         {
         }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasPrecision(18, 2); // 👈 clave
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using ProductApi.Application.Products.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;

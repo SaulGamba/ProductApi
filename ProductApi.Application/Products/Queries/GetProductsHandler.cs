@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using ProductApi.Application.Interfaces;
-using ProductApi.Application.Products;
+using ProductApi.Application.Products.DTOs;
 using ProductApi.Application.Products.Queries;
 
 public class GetProductsHandler : IRequestHandler<GetProductsQuery, List<ProductResponse>>

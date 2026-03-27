@@ -1,16 +1,16 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ProductApi.Application.Products;
 using ProductApi.Application.Products.Commands;
+using ProductApi.Application.Products.DTOs;
 using ProductApi.Application.Products.Queries;
 
 [ApiController]
-[Route("api/[controller]")]
-public class ProductsController : ControllerBase
+[Route("[controller]")]
+public class ProductController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public ProductsController(IMediator mediator)
+    public ProductController(IMediator mediator)
     {
         _mediator = mediator;
     }
